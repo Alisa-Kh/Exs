@@ -77,26 +77,47 @@ def exp_n_x(n, x):
 # Part 2 - Play Hanoi
 
 
+def play_hanoi(hanoi, n, src, dest, temp):
+    if n == 2:
+        hanoi.move(src, temp)
+        hanoi.move(src, dest)
+        hanoi.move(temp, dest)
+    elif n == 1:
+        hanoi.move(src, dest)
+    elif n <= 0:
+        return
+    else:
+        play_hanoi(hanoi, n - 1, src, temp, dest)
+        hanoi.move(src, dest)
+        play_hanoi(hanoi, n - 1, temp, dest, src)
+
+
 def bin_helper(n, i, seq_template):
     if i == len(seq_template):
-        return seq_template
-    seq_template[i] = 0
-    bin_helper(n, i + 1, seq_template)
-    seq_template[i] = 1
-    bin_helper(n, i + 1, seq_template)
+        print(''.join(seq_template))
+    else:
+        seq_template[i] = '0'
+        bin_helper(n, i + 1, seq_template)
+        seq_template[i] = '1'
+        bin_helper(n, i + 1, seq_template)
 
 
 def print_binary_sequences(n):
-    bin_seq = [] * n
+    bin_seq = ['0'] * n
     if n > 0:
-        print(bin_helper(n, 0, bin_seq))
+        bin_helper(n, 0, bin_seq)
+    else:
+        return ''
 
-print_binary_sequences(5)
 
+def sequence_helper(char_list, i, k, seq_temp):
+    
 
 
 def print_sequences(char_list, n):
-    pass
+    seq = ['0'] * n
+    if n > 0:
+        sequence_helper(char_list, 0, 0, seq)
 
 
 def print_no_repetition_sequences(char_list, n):
@@ -104,9 +125,5 @@ def print_no_repetition_sequences(char_list, n):
 
 
 def no_repetition_sequences_list(char_list, n):
-    pass
-
-
-def play_hanoi(hanoi, n, src, dest, temp):
     pass
 
